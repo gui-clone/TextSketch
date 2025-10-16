@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TextSketch Runner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    textarea {
+      width: 45%;
+      height: 200px;
+      font-family: monospace;
+      font-size: 14px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>TextSketch Runner</h1>
+
+  <textarea id="schemeCode" placeholder="Enter your Guile Scheme code that outputs SVG...">
+    (define show (new-panel 300 200))
+    (show 
+        (fill 
+              green
+              (bezier (0 150) (150 150) (75 0) )
+          )
+    )
+  </textarea>
+  <br />
+  <button id="runBtn">Run Scheme</button>
+
+  <div id="output"></div>
+  <p>GNU Guile 3.0.9 Copyright (C) 1995-2023 Free Software Foundation, Inc. Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'. This program is free software, and you are welcome to redistribute it under certain conditions.</p>
+
+  <script>
+    const runBtn = document.getElementById('runBtn');
+    const outputDiv = document.getElementById('output');
+    const codeArea = document.getElementById('schemeCode');
+
+    runBtn.addEventListener('click', async () => {
+      outputDiv.innerHTML = 'Running...';
+
+      try {
+        const response = await fetch('/run_scheme', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ code: codeArea.value })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          outputDiv.textContent = 'Error: ' + (data.error || 'Unknown error');
+          return;
+        }
+
+        // Insert SVG directly
+        outputDiv.innerHTML = data.svg;
+      } catch (err) {
+        outputDiv.textContent = 'Fetch error: ' + err.message;
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -22,8 +22,33 @@ TextSketch is a Lisp-based DSL for creating SVG drawings.
 
 ## Sintaxe da Linguagem
 
-> Apresente um guia de sintaxe da linguagem. O formato é livre, mas você pode se inspirar em alguma documentação conhecida de sintaxe de linguagem.
+#### Basic types
+- Point: tuple of numbers, formatted as: `(x y)` — e.g., `(10 20)`
+- Color: written name of a color supported by [SVG](https://www.w3.org/TR/SVG11/types.html#ColorKeywords) — e.g., `red`, `blue`, `lightgreen`
 
+#### Atoms
+- Bézier curve: curve formed with start point, end point and control point
+```
+(bezier START_POINT END_POINT CONTROL_POINT)
+```
+- Group: unite a list of shapes into a new shape
+```
+(group SHAPES)
+```
+- Fill: fill a shape with a color
+```
+(fill COLOR SHAPE)
+```
+- Define SVG: save a shape with a name. Can be used in other parts of the code
+```
+(defineSVG NAME (ARGS) SHAPE)
+```
+#### Create Panel
+- New Panel: create a penal with the width and height given, return a function that receive a shape and show it in the panel
+```
+(define show (new-panel WIDTH HEIGHT))
+(show SHAPE)
+```
 ## Exemplos Selecionados
 
 > Coloque um conjunto de exemplos selecionados e os resultados alcançados.

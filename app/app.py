@@ -31,6 +31,7 @@ def run_scheme():
 
         output_svg = result.stdout.decode()
         # Extract the SVG block
+        # print(output_svg)
         match = re.search(r'(<svg.*?</svg>)', output_svg, re.DOTALL)
         if match:
             svg_content = match.group(1)

@@ -96,32 +96,32 @@
                                     ) ))
 
                             (cond
-                                 ((eq? 'path type)
-                                    
-                                    (append 
-                                        `(<svg
-                                            width="300"
-                                            height="300"
-                                            viewBox= ,(format #f "0 0 ~A ~A" width height )
-                                          >)
-                                        (toSVG content)
-                                        '(</svg>)
-                                    )
+                              ((eq? 'path type)
+                                
+                                (append 
+                                    `(<svg
+                                        width="400"
+                                        height="400"
+                                        viewBox= ,(format #f "0 0 ~A ~A" width height )
+                                      >)
+                                    (toSVG content)
+                                    '(</svg>)
+                                )
 
-                                  )
-                                 (else  
-                                      (append 
-                                          `(<svg
-                                              width="300"
-                                              height="300"
-                                              viewBox= ,(format #f "0 0 ~A ~A" width height )
-                                            >)
-                                          (map (lambda (x) (toSVG (cdr x)) ) (car content))
-                                          '(</svg>)
-                                      )
-                                 )
+                              )
+                              (else  
+                                (append 
+                                    `(<svg
+                                        width="400"
+                                        height="400"
+                                        viewBox= ,(format #f "0 0 ~A ~A" width height )
+                                      >)
+                                    (map (lambda (x) (toSVG (cdr x)) ) (car content))
+                                    '(</svg>)
+                                )
+                              )
 
-                                 )
+                            )
                         )
 
                   )

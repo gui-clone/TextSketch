@@ -1,3 +1,5 @@
 # ignores the virtual enviroment
 venv/
 .venv/
+
+requirements.txt

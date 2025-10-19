@@ -10,7 +10,7 @@ A possibilidade de descrever elementos gráficos de forma declarativa e reutiliz
 
 ## Slides
 
-> Coloque aqui o link para o PDF da apresentação.
+[Apresentação](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
 
 ## Notebook
 

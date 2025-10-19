@@ -1,16 +1,12 @@
 # DSL TextSketch
 
 ## Descrição Resumida da DSL
-
-TextSketch is a Lisp-based DSL for creating SVG drawings.
-> Descrição resumida do tema do projeto. Sugestão de roteiro (cada item tipicamente tratado em uma ou poucas frases):
->
-> Contextualização da linguagem
->
-> Motivação
->
-> Relevância
->
+##### Contextualização da linguagem
+TextSketch é um Lisp-based DSL para criar desenhos em SVG.
+##### Motivação
+Uma DSL baseada em Lisp permite descrever elementos gráficos de forma declarativa e estruturada, facilitando a reutilização de desenhos e permite criar formas genéricas que podem ser utilizadas em momentos diferentes.
+##### Relevância
+A possibilidade de descrever elementos gráficos de forma declarativa e reutilizável torna essa DSL uma ferramenta valiosa para a criação de bibliotecas visuais modulares, favorecendo a consistência e a produtividade em projetos gráficos.
 
 ## Slides
 
@@ -22,60 +18,97 @@ TextSketch is a Lisp-based DSL for creating SVG drawings.
 
 ## Sintaxe da Linguagem
 
-#### Basic types
-- Point: tuple of numbers, formatted as: `(x y)` — e.g., `(10 20)`
-- Color: written name of a color supported by [SVG](https://www.w3.org/TR/SVG11/types.html#ColorKeywords) — e.g., `red`, `blue`, `lightgreen`
-
-#### Atoms
-- Bézier curve: curve formed with start point, end point and control point
+#### Tipos Básicos
+- Ponto: tupla de números, formado como: `(x y)` — e.g., `(10 20)` 
+- Cor: escrito como os nomes das cores (em inglês) suportados pelo [SVG](https://www.w3.org/TR/SVG11/types.html#ColorKeywords) — e.g., `red`, `blue`, `lightgreen`
+#### Elementos Básicos
+- Formma: um único elemento que pode ter suas características alteradas, além de formar novas formas
+- Grupo: conjunto de formas. Não é possível alterar as características das formas que o compõem
+#### Funções
+- Bézier curve: curva formada por um ponto inicial, ponto final e ponto de controle
 ```
 (bezier START_POINT END_POINT CONTROL_POINT)
 ```
-- Group: unite a list of shapes into a new shape
+- Form: cria uma nova forma a partir de outras
 ```
-(group SHAPES)
+(form SHAPES)
 ```
-- Fill: fill a shape with a color
+- Union: cria um grupo de formas e de outros grupos
+```
+(union SHAPES/GROUPS)
+```
+- Fill: preenche uma forma com uma cor
 ```
 (fill COLOR SHAPE)
 ```
-- Define SVG: save a shape with a name. Can be used in other parts of the code
+- Define SVG: salva uma forma ou grupo genéricos, recebendo parâmetros para gerar a saída
 ```
-(defineSVG NAME (ARGS) SHAPE)
+(defineSVG NAME (ARGS) SHAPE/GROUP)
 ```
-#### Create Panel
-- New Panel: create a penal with the width and height given, return a function that receive a shape and show it in the panel
+#### Criar Painel
+- New Panel: cria um painel com largura e altura dados, retorna uma função que recebe uma forma ou grupo, mostrando-o no painel
 ```
 (define show (new-panel WIDTH HEIGHT))
-(show SHAPE)
+(show SHAPE/GROUP)
 ```
 ## Exemplos Selecionados
+##### Exemplo 1:
+Input
+```
+(define show (new-panel 300 200))
+(show 
+    (fill 
+          green
+          (bezier (0 150) (150 150) (75 0) )
+      )
+)
+```
+Output
+```
+(<svg width= "300" height= "300" viewBox= "0 0 300 200" > <path d= "M 0 150 Q 75 0 150 150" stroke= "black" fill= "green" stroke-width= "2" /> </svg>)
+```
+##### Exemplo 2:
+Input
+```
+(define show (new-panel 50 50))
+
+(defineSVG circle ((cx cy) radius)
+    (let ((x cx)
+          (y cy)
+          (r radius))
+              (form
+              (bezier ((- x r) y ) ((+ x r) y) ( x (+ y (* 2 r) )) )
+              (bezier ((- x r) y ) ((+ x r) y) ( x (- y (* 2 r) )) )
+         )
+    )
+
+)
+
+(show (circle (25 25) 10))
+```
+Output
+```
+(<svg width= "300" height= "300" viewBox= "0 0 50 50" > <path d= "M 15 25 Q 25 45 35 25 M 15 25 Q 25 5 35 25" stroke= "black" fill= "none" stroke-width= "2" /> </svg>)
+```
 
 > Coloque um conjunto de exemplos selecionados e os resultados alcançados.
 
 ## Discussão
 
-> Discussão dos resultados. Relacionar os resultados com as perguntas de pesquisa ou hipóteses avaliadas.
->
-> A discussão dos resultados também pode ser feita opcionalmente na seção de Resultados, na medida em que os resultados são apresentados. Aspectos importantes a serem discutidos: Por que seu modelo alcançou (ou não) um bom resultado? É possível tirar conclusões dos resultados? Quais? Há indicações de direções para estudo? São necessários trabalhos mais profundos?
+A linguagem DLS criada cumpre satisfatoriamente a proposta de ser uma liguagem de criação gráfica utilizando SVG de forma declarativa e reutilizável.
+A capacidade de criar elementos genéricos e definir formas reaproveitáveis pode facilitar a prototipação progrmática de desenhos e possíveis automações.
 
 ## Conclusão
 
-> Destacar as principais conclusões obtidas no desenvolvimento do projeto.
->
-> Destacar os principais desafios enfrentados.
->
-> Principais lições aprendidas.
+O desenvolvimento da DSL baseada em Lisp para geração de gráficos em SVG permitiu concluir que é viável criar uma linguagem reutilizável e adequada para descrever construções gráficas de forma declarativa. Entre os principais desafios enfrentados estiveram a definição de como guadar as propriedades de cada elemento, a utilização de funções envolvendo strings e o aprofundamento de como usar macro-higiênico e funções 'let/let*' de forma que extraia a capacidade máxima. As principais lições aprendidas, destacam-se a utilidade de macros na construção de DSLs e aprender a estrutura LISP de código.
 
 # Trabalhos Futuros
 
-> O que poderia ser melhorado se houvesse mais tempo?
-> Quais possíveis desdobramentos este projeto pode ter?
+O principal ponto de melhora é desenvolver uma função de criar formas que seja compatível com preenchimento de cores.
+Além disso, é possível ampliar as ferramentas de criação, como ter a possibilidade de alterar a grossura e cor das bordas.
 
 # Referências Bibliográficas
 
-> Lista de artigos, links e referências bibliográficas.
->
-> Fiquem à vontade para escolher o padrão de referenciamento preferido pelo grupo.
-
-
+[Manual Scheme](https://man.scheme.org/) </br>
+[Define-syntax](https://www.gnu.org/software/guile/manual/html_node/Syntax-Rules.html) </br>
+[Local Variable](https://www.gnu.org/software/guile/manual/html_node/Local-Bindings.html) </br>

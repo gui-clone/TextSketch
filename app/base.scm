@@ -22,7 +22,7 @@
 (define-syntax form
   (syntax-rules ()
     ((form shape ...) ; lista em define-syntax
-     (let* ((get_d (lambda (curve) (cdr (assq 'd curve))))
+     (let* ((get_d (lambda (curve) (cdr (assq 'd (cdr curve) ))))
             (newD (map get_d (list shape ...))))
        
             `( path (d . ,(string-join newD " "))

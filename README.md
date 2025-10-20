@@ -6,7 +6,9 @@ TextSketch é um Lisp-based DSL para criar desenhos em SVG.
 
 ### Motivação
 Uma DSL baseada em Lisp permite descrever elementos gráficos de forma declarativa e estruturada, facilitando a reutilização de
-desenhos e permite criar formas genéricas que podem ser utilizadas em momentos diferentes.
+desenhos e permite criar formas genéricas que podem ser utilizadas em momentos diferentes. Ao invés de expor a interface direta do
+SVG, que pode se tornar extremamente complexa, essa DSL possibilita a criação de formas num nível mais alto, além de facilitar a
+modularização do código, o que facilita o seu uso em contextos onde o tempo de desenvolvimento é mais crítico.
 
 ### Relevância
 A possibilidade de descrever elementos gráficos de forma declarativa e reutilizável torna essa DSL uma ferramenta valiosa para a
@@ -98,9 +100,7 @@ Output:
 ## Discussão
 A DSL criada cumpre satisfatoriamente a proposta de ser uma liguagem de criação gráfica utilizando SVG de forma declarativa e
 reutilizável. A capacidade de criar elementos genéricos e definir formas reaproveitáveis pode facilitar a prototipação
-programática de desenhos e possíveis automações em Scheme. Ao invés de expor a interface direta do SVG, que pode se tornar
-extremamente complexa, essa DSL possibilita a criação de formas num nível mais alto, além de facilitar a modularização do código,
-o que facilita o seu uso em contextos onde o tempo de desenvolvimento é mais crítico.
+programática de desenhos e possíveis automações em Scheme.
 
 Apesar de ser propositalmente minimalista, bibliotecas adicionais que definem suas próprias formas e grupos podem tornar o
 desenvolvimento ainda mais simples, sem abrir mão da flexibilidade da curva de Bézier. Ao exportar para SVG, um formato aberto,

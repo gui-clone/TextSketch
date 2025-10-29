@@ -8,26 +8,28 @@
 (define-syntax bezier
   (syntax-rules ()
      ( (bezier sPT ePT cPT)
-         `( path (d . ,(string-append "M "
-                       (point sPT)
-                       " Q "
-                       (point cPT) " "
-                       (point ePT)))
+         `( path (d . (( ,(point sPT) ,(point ePT) ,(string-append "Q " (point cPT)) )) )
                  (stroke . "black")
                  (fill . "none")) 
      )
   )
 )
 
+
 (define-syntax form
   (syntax-rules ()
     ((form shape ...) ; lista em define-syntax
-     (let* ((get_d (lambda (curve) (cdr (assq 'd (cdr curve) ))))
-            (newD (map get_d (list shape ...))))
+     (let* ((get_d (lambda (curve) (cadr (assq 'd (cdr curve) ))))
+            (dList (map get_d (list shape ...)))
+            (sPT (caar dList) )
+            (ePT (cadr (car (list-tail dList (- (length dList) 1))) ))
+            (bodyList (apply append (map (lambda (path) (reverse (cdr path))) dList)) ) ; get the second and third element of every list
+            (body (string-join (reverse (cdr (reverse bodyList))) " ") ) ; remove the last elemet and concatenate strings
+            )
        
-            `( path (d . ,(string-join newD " "))
+            `( path (d . ((,sPT ,ePT ,body)) )
                  (stroke . "black")
-                 (fill . "none"))
+                 (fill . "none")) 
        )
      )
     )
@@ -81,12 +83,21 @@
                       (let* ((type (car shape) )
                             (content (cdr shape))
                             (toSVG (lambda (cont)
-                                            (let ((newD (cdr (assq 'd cont)) )
-                                                (newStroke (cdr (assq 'stroke cont)) )
-                                                (newColor (cdr (assq 'fill cont)) ))
+                                            (let* ((newD (cadr (assq 'd cont)) )
+                                                   (sPT (car newD))
+                                                   (ePT (cadr newD))
+                                                   (otherD (caddr newD))
+                                                   (newStroke (cdr (assq 'stroke cont)) )
+                                                   (newColor (cdr (assq 'fill cont)) )
+                                                   (close-str (if (string=? sPT ePT) " Z" "")))
                                             
                                                   `(<path
-                                                          d= ,(format #f "~A" newD )
+                                                          d= ,(string-append "M "
+                                                                   sPT
+                                                                   " "
+                                                                   otherD " "
+                                                                   ePT
+                                                                   close-str )
                                                           stroke= ,(format #f "~A" newStroke)
                                                           fill= ,(format #f "~A" newColor)
                                                           stroke-width="2"
@@ -96,32 +107,32 @@
                                     ) ))
 
                             (cond
-                              ((eq? 'path type)
-                                
-                                (append 
-                                    `(<svg
-                                        width="400"
-                                        height="400"
-                                        viewBox= ,(format #f "0 0 ~A ~A" width height )
-                                      >)
-                                    (toSVG content)
-                                    '(</svg>)
-                                )
+                                 ((eq? 'path type)
+                                    
+                                    (append 
+                                        `(<svg
+                                            width="400"
+                                            height="400"
+                                            viewBox= ,(format #f "0 0 ~A ~A" width height )
+                                          >)
+                                        (toSVG content)
+                                        '(</svg>)
+                                    )
 
-                              )
-                              (else  
-                                (append 
-                                    `(<svg
-                                        width="400"
-                                        height="400"
-                                        viewBox= ,(format #f "0 0 ~A ~A" width height )
-                                      >)
-                                    (map (lambda (x) (toSVG (cdr x)) ) (car content))
-                                    '(</svg>)
-                                )
-                              )
+                                  )
+                                 (else  
+                                      (append 
+                                          `(<svg
+                                              width="400"
+                                              height="400"
+                                              viewBox= ,(format #f "0 0 ~A ~A" width height )
+                                            >)
+                                          (map (lambda (x) (toSVG (cdr x)) ) (car content))
+                                          '(</svg>)
+                                      )
+                                 )
 
-                            )
+                                 )
                         )
 
                   )

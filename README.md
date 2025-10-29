@@ -38,7 +38,7 @@ criação de bibliotecas visuais modulares, favorecendo a consistência e a prod
 (bezier START_POINT END_POINT CONTROL_POINT)
 ```
 
-- **Form**: cria uma nova forma a partir de outras.
+- **Form**: cria uma nova forma a partir de outras. As formas precisam estar em sequências, com o ponto final de uma ser o mesmo que o ponto inicial da próxima.
 ```scheme
 (form SHAPES)
 ```
@@ -69,12 +69,19 @@ criação de bibliotecas visuais modulares, favorecendo a consistência e a prod
 Input:
 ```scheme
 (define show (new-panel 300 200))
-(show (fill green
-            (bezier (0 150) (150 150) (75 0))))
+(define s1 
+        (fill green
+            (bezier (75 200) (225 200) (150 0))) )
+(define s2 
+        (fill yellow
+            (bezier (75 0) (225 0) (150 200))) )
+(define u (union s1 s2))
+
+(show u)
 ```
 Output:
 ```scheme
-(<svg width= "300" height= "300" viewBox= "0 0 300 200" > <path d= "M 0 150 Q 75 0 150 150" stroke= "black" fill= "green" stroke-width= "2" /> </svg>)
+(<svg width= "300" height= "300" viewBox= "0 0 300 200" > (<path d= "M 75 200 Q 150 0 225 200" stroke= "black" fill= "green" stroke-width= "2" />) (<path d= "M 75 0 Q 150 200 225 0" stroke= "black" fill= "yellow" stroke-width= "2" />) </svg>)
 ```
 ### Exemplo 2:
 Input:
@@ -86,15 +93,17 @@ Input:
           (y cy)
           (r radius))
       (form
-        (bezier ((- x r) y ) ((+ x r) y) ( x (+ y (* 2 r))))
-        (bezier ((- x r) y ) ((+ x r) y) ( x (- y (* 2 r)))))))
+        (bezier (x (- y r)) ((+ x r) y) ((+ x r) (- y r) ))
+        (bezier ((+ x r) y) (x (+ y r)) ((+ x r) (+ y r) ))
+        (bezier (x (+ y r)) ((- x r ) y) ((- x r) (+ y r)))
+        (bezier ((- x r ) y) (x (- y r)) ((- x r) (- y r))) )))
 
-(show (circle (25 25) 10))
+(show (fill aqua (circle (25 25) 10) ))
 ```
 
 Output:
 ```scheme
-(<svg width= "300" height= "300" viewBox= "0 0 50 50" > <path d= "M 15 25 Q 25 45 35 25 M 15 25 Q 25 5 35 25" stroke= "black" fill= "none" stroke-width= "2" /> </svg>)
+(<svg width= "300" height= "300" viewBox= "0 0 50 50" > <path d= "M 25 15 Q 35 15 35 25 Q 35 35 25 35 Q 15 35 15 25 Q 15 15 25 15 Z" stroke= "black" fill= "aqua" stroke-width= "2" /> </svg>)
 ```
 
 ## Discussão

@@ -16,7 +16,8 @@ criação de bibliotecas visuais modulares, favorecendo a consistência e a prod
 
 ## Slides
 
-[Apresentação](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
+[Apresentação 1](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
+[Apresentação 2](https://docs.google.com/presentation/d/1Vh-8RL13nnGxDFIC74nUt0DFt6BtCy-x_dU8QSwYx10/edit?usp=sharing)
 
 ## Notebook
 
@@ -53,6 +54,31 @@ criação de bibliotecas visuais modulares, favorecendo a consistência e a prod
 (fill COLOR SHAPE)
 ```
 
+- **Stroke**: altera a cor a borda de uma forma
+```scheme
+(stroke COLOR SHAPE)
+```
+
+- **Stroke Width**: altera a grossura da borda de uma forma
+```scheme
+(stroke-width WIDTH SHAPE)
+```
+
+- **Translate**: translada a posição de uma forma, aplicada somente na visualização da imagem
+```scheme
+(translate TRANSLATE_POINT SHAPE)
+```
+
+- **Scale**: altera a escala da forma, aplicada somente na visualização da imagem
+```scheme
+(scale X_SCALE Y_SCALE SHAPE)
+```
+
+- **Rotate**: rotaciona (em graus) a forma em torno da origem, aplicada somente na visualização da imagem
+```scheme
+(rotate DEGREE SHAPE)
+```
+
 - **Define SVG**: salva uma forma ou grupo genéricos, recebendo parâmetros para gerar a saída.
 ```scheme
 (defineSVG NAME (ARGS) SHAPE/GROUP)
@@ -81,7 +107,7 @@ Input:
 ```
 Output:
 ```scheme
-(<svg width= "300" height= "300" viewBox= "0 0 300 200" > (<path d= "M 75 200 Q 150 0 225 200" stroke= "black" fill= "green" stroke-width= "2" />) (<path d= "M 75 0 Q 150 200 225 0" stroke= "black" fill= "yellow" stroke-width= "2" />) </svg>)
+(<svg width= "400" height= "400" viewBox= "0 0 300 200" > (<path d= "M 75 200 Q 150 0 225 200" stroke= "black" fill= "green" stroke-width= "2" transform= "  " />) (<path d= "M 75 0 Q 150 200 225 0" stroke= "black" fill= "yellow" stroke-width= "2" transform= "  " />) </svg>)
 ```
 ### Exemplo 2:
 Input:
@@ -103,7 +129,7 @@ Input:
 
 Output:
 ```scheme
-(<svg width= "300" height= "300" viewBox= "0 0 50 50" > <path d= "M 25 15 Q 35 15 35 25 Q 35 35 25 35 Q 15 35 15 25 Q 15 15 25 15 Z" stroke= "black" fill= "aqua" stroke-width= "2" /> </svg>)
+(<svg width= "400" height= "400" viewBox= "0 0 50 50" > <path d= "M 25 15 Q 35 15 35 25 Q 35 35 25 35 Q 15 35 15 25 Q 15 15 25 15 Z" stroke= "black" fill= "aqua" stroke-width= "2" transform= "  " /> </svg>)
 ```
 
 ## Discussão

@@ -152,11 +152,9 @@ principais lições aprendidas, destacam-se a utilidade de macros na construçã
 de código.
 
 # Trabalhos Futuros
-O principal ponto de melhora é desenvolver uma função de criar formas que seja compatível com preenchimento de cores. Além disso,
-é possível ampliar as ferramentas de criação, como ter a possibilidade de alterar a grossura e cor das bordas, o uso de outras
-curvas de bézier com mais pontos de controle (como as cúbicas), entre outras capacidades do SVG que não são suportadas pelo modelo
-atual. Também podem ser implementadas ferramentas de visualização integrada que facilitem seu uso de forma interativa, como em
-Jupyter Notebooks.
+O principal ponto de melhora é ampliar as ferramentas de criação, como o uso de outras curvas de bézier com mais pontos de
+controle (como as cúbicas), entre outras capacidades do SVG que não são suportadas pelo modelo atual. Também podem ser
+implementadas ferramentas de visualização integrada que facilitem seu uso de forma interativa, como em Jupyter Notebooks.
 
 # Referências Bibliográficas
 1. [Manual do Scheme](https://man.scheme.org/)

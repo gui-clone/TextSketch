@@ -1,27 +1,27 @@
 # TextSketch DSL
 
-## Descrição resumida da DSL
-### Contextualização da linguagem
+- Caique Andrade (204677)
+- Felipe Costa Silva (204706)
+- Guilherme Henrique da Silva (281217)
+
+## Descrição Resumida da DSL
+
 TextSketch é um Lisp-based DSL para criar desenhos em SVG.
 
-### Motivação
-Uma DSL baseada em Lisp permite descrever elementos gráficos de forma declarativa e estruturada, facilitando a reutilização de
-desenhos e permite criar formas genéricas que podem ser utilizadas em momentos diferentes. Ao invés de expor a interface direta do
-SVG, que pode se tornar extremamente complexa, essa DSL possibilita a criação de formas num nível mais alto, além de facilitar a
-modularização do código, o que facilita o seu uso em contextos onde o tempo de desenvolvimento é mais crítico.
+A linguagem permite descrever elementos gráficos de forma declarativa e estruturada, facilitando a reutilização de desenhos e
+permitindo criar formas genéricas que podem ser utilizadas em momentos diferentes. Ao invés de expor a interface direta do SVG,
+que pode se tornar extremamente complexa, essa DSL possibilita a criação de formas num nível mais alto, além de facilitar a
+modularização do código, o que facilita o seu uso em contextos onde o tempo de desenvolvimento é mais crítico. Ela também reduz a
+interface mostrada ao programador para um pequeno conjunto de primitivos genéricos que facilitam o seu uso.
 
-### Relevância
 A possibilidade de descrever elementos gráficos de forma declarativa e reutilizável torna essa DSL uma ferramenta valiosa para a
 criação de bibliotecas visuais modulares, favorecendo a consistência e a produtividade em projetos gráficos.
 
-## Slides
+- Slides:
+  - [Apresentação 1](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
+  - [Apresentação 2](https://docs.google.com/presentation/d/1Vh-8RL13nnGxDFIC74nUt0DFt6BtCy-x_dU8QSwYx10/edit?usp=sharing)
 
-[Apresentação 1](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
-[Apresentação 2](https://docs.google.com/presentation/d/1Vh-8RL13nnGxDFIC74nUt0DFt6BtCy-x_dU8QSwYx10/edit?usp=sharing)
-
-## Notebook
-
-[basic rules](notebook/basic_rules.ipynb)
+- [Notebook](./base.ipynb)
 
 ## Sintaxe da Linguagem
 
@@ -91,7 +91,7 @@ criação de bibliotecas visuais modulares, favorecendo a consistência e a prod
 ```
 
 ## Exemplos Selecionados
-### Exemplo 1:
+### Exemplo 1
 Input:
 ```scheme
 (define show (new-panel 300 200))
@@ -109,7 +109,7 @@ Output:
 ```scheme
 (<svg width= "400" height= "400" viewBox= "0 0 300 200" > (<path d= "M 75 200 Q 150 0 225 200" stroke= "black" fill= "green" stroke-width= "2" transform= "  " />) (<path d= "M 75 0 Q 150 200 225 0" stroke= "black" fill= "yellow" stroke-width= "2" transform= "  " />) </svg>)
 ```
-### Exemplo 2:
+### Exemplo 2
 Input:
 ```scheme
 (define show (new-panel 50 50))
@@ -152,9 +152,9 @@ principais lições aprendidas, destacam-se a utilidade de macros na construçã
 de código.
 
 # Trabalhos Futuros
-O principal ponto de melhora é ampliar as ferramentas de criação, como o uso de outras capacidades do SVG que não são suportadas
-pelo modelo atual. Também podem ser implementadas ferramentas de visualização integrada que facilitem seu uso de forma interativa,
-como em Jupyter Notebooks.
+O principal ponto de melhoria é ampliar as ferramentas de criação, como o uso de outras capacidades do SVG que não são suportadas
+pelo modelo atual (como inclusão de texto, imagens bitmap, etc). Também podem ser implementadas ferramentas de visualização
+integrada que facilitem seu uso de forma interativa, como em Jupyter Notebooks.
 
 # Referências Bibliográficas
 1. [Manual do Scheme](https://man.scheme.org/)

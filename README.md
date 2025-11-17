@@ -17,11 +17,13 @@ interface mostrada ao programador para um pequeno conjunto de primitivos genéri
 A possibilidade de descrever elementos gráficos de forma declarativa e reutilizável torna essa DSL uma ferramenta valiosa para a
 criação de bibliotecas visuais modulares, favorecendo a consistência e a produtividade em projetos gráficos.
 
-- Slides:
-  - [Apresentação 1](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
-  - [Apresentação 2](https://docs.google.com/presentation/d/1Vh-8RL13nnGxDFIC74nUt0DFt6BtCy-x_dU8QSwYx10/edit?usp=sharing)
+## Slides
+- [Apresentação 1](https://docs.google.com/presentation/d/1HeqdyV5coyy11g1CQSkbuJo9nluPk5S59jS896N-iak/edit?usp=sharing)
+- [Apresentação 2](https://docs.google.com/presentation/d/1Vh-8RL13nnGxDFIC74nUt0DFt6BtCy-x_dU8QSwYx10/edit?usp=sharing)
 
-- [Notebook](./base.ipynb)
+## Notebook
+- [Notebook 1](./project-1/base.ipynb)
+- [Notebook 2](./project-2-final/base.ipynb)
 
 ## Sintaxe da Linguagem
 
